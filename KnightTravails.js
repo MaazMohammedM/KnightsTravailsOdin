@@ -19,13 +19,41 @@ export function getMoves(position) {
     return validMoves;
 }
 
-function knightMoves(start,end){
+export function knightMoves(start,end){
     const queue = [];
-    const visited = Set();
+    const visited = new Set();
     const startNode = {
         position:start,
         parent:null
     };
     queue.push(startNode);
     visited.add(start.join(','));
+
+    while(queue.length > 0){
+        const currentNode = queue.shift();
+        const currentPosition = currentNode.position;
+        if(currentPosition[0] === end[0] && currentPosition[1] === end[1]){
+            let path = [];
+            let current = currentNode;
+            while(current !== null){
+                path.unshift(current.position);
+                current = current.parent
+            }
+
+            return path;
+        }
+        const moves = getMoves(currentPosition);
+        for(let move of moves){
+            const key = move.join(',');
+            if(!visited.has(key)){
+                visited.add(key);
+                const newNode = {
+                    position:move,
+                    parent:currentNode
+                }
+                queue.push(newNode)
+            }
+        }
+    }
 }
+
