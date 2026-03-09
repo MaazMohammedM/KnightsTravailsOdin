@@ -1,7 +1,5 @@
 export function getMoves(position) {
-    if (!Array.isArray(position)) {
-        throw new Error("Position Should be an Array!")
-    }
+    
     const moveOffsets = [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]];
     let validMoves = [];
     let [x, y] = position;
@@ -20,6 +18,9 @@ export function getMoves(position) {
 }
 
 export function knightMoves(start,end){
+    if ((!Array.isArray(start)) && (!Array.isArray(end))) {
+        throw new Error("Start and End Should be an Array!")
+    }
     const queue = [];
     const visited = new Set();
     const startNode = {
@@ -55,5 +56,6 @@ export function knightMoves(start,end){
             }
         }
     }
+    return null;
 }
 
